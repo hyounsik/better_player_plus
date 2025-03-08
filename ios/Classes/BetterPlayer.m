@@ -211,6 +211,7 @@ static inline CGFloat radiansToDegrees(CGFloat radians) {
         }
         
         item = [cacheManager getCachingPlayerItemForNormalPlayback:url cacheKey:cacheKey videoExtension: videoExtension headers:headers];
+        item.preferredForwardBufferDuration = 6.0;
     } else {
         AVURLAsset* asset = [AVURLAsset URLAssetWithURL:url
                                                 options:@{@"AVURLAssetHTTPHeaderFieldsKey" : headers}];
@@ -223,6 +224,7 @@ static inline CGFloat radiansToDegrees(CGFloat radians) {
             [asset.resourceLoader setDelegate:_loaderDelegate queue:streamQueue];
         }
         item = [AVPlayerItem playerItemWithAsset:asset];
+        item.preferredForwardBufferDuration = 6.0;
     }
 
     if (@available(iOS 10.0, *) && overriddenDuration > 0) {
@@ -232,6 +234,8 @@ static inline CGFloat radiansToDegrees(CGFloat radians) {
 }
 
 - (void)setDataSourcePlayerItem:(AVPlayerItem*)item withKey:(NSString*)key{
+    item.preferredForwardBufferDuration = 6.0;
+    // _player.automaticallyWaitsToMinimizeStalling = NO;
     _key = key;
     _stalledCount = 0;
     _isStalledCheckStarted = false;
