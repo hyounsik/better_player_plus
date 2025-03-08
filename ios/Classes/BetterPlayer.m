@@ -211,7 +211,6 @@ static inline CGFloat radiansToDegrees(CGFloat radians) {
         }
         
         item = [cacheManager getCachingPlayerItemForNormalPlayback:url cacheKey:cacheKey videoExtension: videoExtension headers:headers];
-        item.preferredForwardBufferDuration = 6.0;
     } else {
         AVURLAsset* asset = [AVURLAsset URLAssetWithURL:url
                                                 options:@{@"AVURLAssetHTTPHeaderFieldsKey" : headers}];
@@ -234,7 +233,6 @@ static inline CGFloat radiansToDegrees(CGFloat radians) {
 }
 
 - (void)setDataSourcePlayerItem:(AVPlayerItem*)item withKey:(NSString*)key{
-    item.preferredForwardBufferDuration = 6.0;
     // _player.automaticallyWaitsToMinimizeStalling = NO;
     _key = key;
     _stalledCount = 0;
